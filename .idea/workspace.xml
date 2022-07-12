@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0af4ebef-9f59-4a85-9f65-0d8163baa737" name="Changes" comment="2022-07-12-01-11">
-      <change beforePath="$PROJECT_DIR$/.idea/grc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/grc.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rakefile" beforeDir="false" afterPath="$PROJECT_DIR$/Rakefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/console" beforeDir="false" afterPath="$PROJECT_DIR$/bin/console" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/grc-0.1.0.gem" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_helper.rb" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_helper.rb" afterDir="false" />
-    </list>
+    <list default="true" id="0af4ebef-9f59-4a85-9f65-0d8163baa737" name="Changes" comment="2022-07-12-01-24" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -144,7 +135,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1657595515095</updated>
-      <workItem from="1657595516239" duration="4332000" />
+      <workItem from="1657595516239" duration="4859000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657596693848</created>
@@ -188,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657599101835</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="2022-07-12-01-24">
+      <created>1657599882375</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1657599882375</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -210,7 +208,8 @@
     <MESSAGE value="2022-07-12-00-43" />
     <MESSAGE value="2022-07-12-01-01" />
     <MESSAGE value="2022-07-12-01-11" />
-    <option name="LAST_COMMIT_MESSAGE" value="2022-07-12-01-11" />
+    <MESSAGE value="2022-07-12-01-24" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022-07-12-01-24" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/grc@test_grc_rb.rcov" NAME="test_grc.rb Coverage Results" MODIFIED="1657599843372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
