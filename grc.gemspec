@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency 'minitest', '~> 5.0'
-  spec.add_dependency 'minitest-reporters', '~> 1.0'
+  # spec.add_dependency 'minitest-reporters', '~> 1.0'
   spec.add_dependency 'rake', '~> 13.0'
   spec.add_dependency 'unicode-name', '~> 1.10.0'
 
