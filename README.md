@@ -1,3 +1,5 @@
+[![Ruby](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml/badge.svg)](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml)
+
 # Grc
 
 ## Installation
