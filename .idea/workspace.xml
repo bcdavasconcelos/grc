@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0af4ebef-9f59-4a85-9f65-0d8163baa737" name="Changes" comment="2022-07-12-01-24" />
+    <list default="true" id="0af4ebef-9f59-4a85-9f65-0d8163baa737" name="Changes" comment="2022-07-12-01-33">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/grc.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/grc.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/grc/version.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/grc/version.rb" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,14 +33,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "nodejs_package_manager_path": "npm",
-    "ruby.rails.projectView.checked": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ruby.rails.projectView.checked&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Test::Unit/Shoulda/Minitest.test_grc.rb">
     <configuration name="grc" type="RubyRunConfigurationType" factoryName="Ruby" temporary="true">
       <module name="grc" />
@@ -80,7 +85,7 @@
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPTS_PATHS" VALUE="$MODULE_DIR$/test/test_grc.rb" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_METHOD_NAME" VALUE="" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="CUSTOM_SET_OF_FILES" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SPRING" VALUE="false" />
@@ -135,7 +140,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1657595515095</updated>
-      <workItem from="1657595516239" duration="4859000" />
+      <workItem from="1657595516239" duration="5292000" />
+      <workItem from="1657776231899" duration="6000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657596693848</created>
@@ -186,7 +192,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657599882375</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="2022-07-12-01-33">
+      <created>1657600429179</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1657600429179</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +222,8 @@
     <MESSAGE value="2022-07-12-01-01" />
     <MESSAGE value="2022-07-12-01-11" />
     <MESSAGE value="2022-07-12-01-24" />
-    <option name="LAST_COMMIT_MESSAGE" value="2022-07-12-01-24" />
+    <MESSAGE value="2022-07-12-01-33" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022-07-12-01-33" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/grc@test_grc_rb.rcov" NAME="test_grc.rb Coverage Results" MODIFIED="1657599843372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
