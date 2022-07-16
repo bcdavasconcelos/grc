@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0af4ebef-9f59-4a85-9f65-0d8163baa737" name="Changes" comment="2022-07-16-03-34">
+    <list default="true" id="0af4ebef-9f59-4a85-9f65-0d8163baa737" name="Changes" comment="2022-07-16-03-45">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.rubocop.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.rubocop.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/grc/version.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/grc/version.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -302,7 +299,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657953258951</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="2022-07-16-03-45">
+      <created>1657953913633</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1657953913633</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -330,7 +334,8 @@
     <MESSAGE value="minor fix" />
     <MESSAGE value="Fixed `oxia_to_tonos` &amp; `tonos_to_oxia` and added the options of `to_tonos` &amp; `to_oxia`. Added `transliterate`." />
     <MESSAGE value="2022-07-16-03-34" />
-    <option name="LAST_COMMIT_MESSAGE" value="2022-07-16-03-34" />
+    <MESSAGE value="2022-07-16-03-45" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022-07-16-03-45" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/grc@test_oxia_to_tonos.rcov" NAME="test_oxia_to_tonos Coverage Results" MODIFIED="1657949990401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
