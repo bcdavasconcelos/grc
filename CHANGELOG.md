@@ -14,7 +14,7 @@
 - Updated documentation
 
 ## [0.1.3] - 2022-07-16
-- 
+
 - Fixed `oxia_to_tonos` & `tonos_to_oxia` 
 - New shorter versions `to_tonos` & `to_oxia`. 
-- Added `transliterate`.
+- Added `transliterate` (experimental: please report any errors).
