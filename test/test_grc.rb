@@ -28,11 +28,18 @@ class TestGrc < Minitest::Test
   end
 
   def test_tonos_to_oxia
-    assert_equal 'ά', 'ά'.tonos_to_oxia
+    assert 'ά'.to_oxia.unicode_name.join =~ /OXIA/ && 'έ'.to_oxia.unicode_name.join =~ /OXIA/
+    assert 'ί'.to_oxia.unicode_name.join =~ /OXIA/ && 'ή'.to_oxia.unicode_name.join =~ /OXIA/
+    assert 'ό'.to_oxia.unicode_name.join =~ /OXIA/ && 'ύ'.to_oxia.unicode_name.join =~ /OXIA/
+    assert 'ώ'.to_oxia.unicode_name.join =~ /OXIA/
   end
 
   def test_oxia_to_tonos
     assert_equal 'ά', 'ά'.oxia_to_tonos
+    assert 'άΆ'.to_tonos.unicode_name.join =~ /TONOS/ && 'έΈ'.to_tonos.unicode_name.join =~ /TONOS/
+    assert 'ήΉ'.to_tonos.unicode_name.join =~ /TONOS/ && 'ίΊΐ'.to_tonos.unicode_name.join =~ /TONOS/
+    assert 'όΌ'.to_tonos.unicode_name.join =~ /TONOS/ && 'ύΎΰ'.to_tonos.unicode_name.join =~ /TONOS/
+    assert 'ώΏ'.to_tonos.unicode_name.join =~ /TONOS/
   end
 
   def test_acute_to_grave

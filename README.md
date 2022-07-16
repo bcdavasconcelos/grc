@@ -3,19 +3,19 @@
 [![Ruby](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml/badge.svg)](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml) [![Gem Version](https://badge.fury.io/rb/grc.svg)](https://badge.fury.io/rb/grc)
            
 ```ruby
-'α'.grc? # true
-'a'.grc? # false
+'αβγ'.grc?                 # true
+'abc'.grc?                 # false
 'ἄ'.no_downcase_diacritics # α
-'Ἀ'.no_upcase_diacritics # Α
-'ἄἈ'.no_diacritics # αΑ
-'ά'.tonos_to_oxia # ά
-'ά'.oxia_to_tonos # ά
-'ὰ'.grave_to_acute # ά
-'ά'.acute_to_grave # ὰ
-'α'.unicode_name # ['GREEK SMALL LETTER ALPHA']
-'α'.unicode_points # ['\\u03B1']
-'ᾄ'.nfc # ᾄ
-'ᾄ'.nfd # ᾄ
+'Ἀ'.no_upcase_diacritics   # Α
+'ἄἈ'.no_diacritics         # αΑ
+'ά'.tonos_to_oxia          # ά
+'ά'.oxia_to_tonos          # ά
+'ὰ'.grave_to_acute         # ά
+'ά'.acute_to_grave         # ὰ
+'α'.unicode_name           # ['GREEK SMALL LETTER ALPHA']
+'α'.unicode_points         # ['\\u03B1']
+'ᾄ'.nfc                    # ᾄ
+'ᾄ'.nfd                    # ᾄ
 ```
 
 ## Installation
