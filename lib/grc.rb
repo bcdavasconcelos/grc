@@ -24,11 +24,8 @@ module Grc
 
     str = self
     # Adhoc solution for odd combinations of diacritics with capital letters
-    ars = [[/[́̀͂́́́̀͂]/, ''], [/Α͂/, 'Α'], [/Η͂/, 'Η'], [/Ί|Ὶ|Ι͂|́Ι|̀Ι|͂Ι/, 'Ι'],
-           [/Ρ̓/, 'Ρ'], [/ Ὺ| ́Υ|Υ̓|Ύ|Ὺ|Υ͂|́Υ|̀Υ|͂Υ/, 'Υ'], [/͂Ω/, 'Ω']]
-    ars.each do |a|
-      str = str.gsub(/#{a[0]}/, a[1])
-    end
+    subs = [[/[́̀͂́́́̀͂]/, ''], [/Α͂/, 'Α'], [/Η͂/, 'Η'], [/Ί|Ὶ|Ι͂|́Ι|̀Ι|͂Ι/, 'Ι'], [/Ρ̓/, 'Ρ'], [/ Ὺ| ́Υ|Υ̓|Ύ|Ὺ|Υ͂|́Υ|̀Υ|͂Υ/, 'Υ'], [/͂Ω/, 'Ω']]
+    subs.each { |a| str = str.gsub(/#{a[0]}/, a[1]) }
     str.tr('ἈἌἊἎἉἍἋἏΆᾺᾸᾹἘἜἚἙἝἛΈῈἨἬἪἮἩἭἫἯΉῊἸἼἺἾἹἽἻἿΊῚῘΪῙὈὌὊὉὍὋΌῸΡῬὙὝὛὟΎῪῨΫῩὨὬὪὮὩὭὫὯΏῺ',
            'ΑΑΑΑΑΑΑΑΑΑΑΑΕΕΕΕΕΕΕΕΗΗΗΗΗΗΗΗΗΗΙΙΙΙΙΙΙΙΙΙΙΙΙΟΟΟΟΟΟΟΟΡΡΥΥΥΥΥΥΥΥΥΩΩΩΩΩΩΩΩΩΩ')
   end
@@ -77,6 +74,18 @@ module Grc
 
     tr('ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ',
        'ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ')
+  end
+
+  def to_grave
+    return @std_error unless grc?
+
+    acute_to_grave
+  end
+
+  def to_acute
+    return @std_error unless grc?
+
+    grave_to_acute
   end
 
   def tokenize
@@ -257,3 +266,57 @@ end
 class String
   include Grc
 end
+
+
+# #############################################################################
+
+## String contains greek letters? (str → bool)
+'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.grc?
+'Greekless sentence'.grc?
+
+## Tokenize string (str → array)
+'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.tokenize
+
+## Transliterate greek to latin (str → str) [EXPERIMENTAL]
+'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.transliterate
+
+## Unicode characters in string (str → array)
+'θεὰ'.unicode_char
+## Unicode points of each character in string (str → array)
+'θεὰ'.unicode_points
+## Unicode name of each character in string (str → array)
+'θεὰ'.unicode_name
+
+## Change accent mark: Grave → Acute (str → str)
+'θεὰ'.to_acute
+## Change accent mark: Acute →  Grave (str → str)
+'θεά'.to_grave
+
+## Change acute accent: Tonos → Oxia (str → str)
+str = 'θεά'
+str.unicode_name
+str = str.to_oxia
+str.unicode_name
+
+## Change acute accent: Oxia → Tonos (str → str)
+str = str.to_tonos
+str.unicode_name
+
+## Unicode Normalization - Canonical Decomposition (NFD) (str → str)
+str = 'ἄειδε'
+"#{str.length} #{str.unicode_char}"
+str = str.nfd
+"#{str.length} #{str.unicode_char}"
+## Unicode Normalization - Canonical Composition (NFC) (str → str)
+str = str.nfc
+"#{str.length} #{str.unicode_char}"
+
+# no_downcase_diacritics (str → str)
+str = 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'
+str.no_downcase_diacritics
+# no_upcase_diacritics (str → str)
+str.no_upcase_diacritics
+# no_diacritics (str → str)
+str.no_diacritics
+
+# hash_dump (str → hash)
