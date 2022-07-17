@@ -1,50 +1,156 @@
-# GRC - Methods for working with Ancient Greek in Ruby
-
-[![Ruby](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml/badge.svg)](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml) [![Gem Version](https://badge.fury.io/rb/grc.svg)](https://badge.fury.io/rb/grc)
-           
 ```ruby
-'αβγ'.grc?                 # true
-'abc'.grc?                 # false
-'ἄ'.no_downcase_diacritics # α
-'Ἀ'.no_upcase_diacritics   # Α
-'ἄἈ'.no_diacritics         # αΑ
-'ά'.tonos_to_oxia          # ά
-'ά'.oxia_to_tonos          # ά
-'ὰ'.grave_to_acute         # ά
-'ά'.acute_to_grave         # ὰ
-'α'.unicode_name           # ['GREEK SMALL LETTER ALPHA']
-'α'.unicode_points         # ['\\u03B1']
-'ᾄ'.nfc                    # ᾄ
-'ᾄ'.nfd                    # ᾄ
+require 'grc'
 ```
 
-## Installation
+## String contains greek letters? (str → bool)
 
-Install the gem and add to the application's Gemfile by executing:
+Here we check for the presence or absence of greek letters in a string.
 
-    $ bundle add grc
+```ruby
+irb(main):001:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.grc?
+=> true
+irb(main):002:0> 'Greekless sentence'.grc?
+=> false
+```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+## Tokenize string (str → array)
 
-    $ gem install grc
+Now we tokenize a string into an array of greek words and punctuation.
 
-## Usage
+```ruby
+irb(main):02:0> 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'.tokenize
+=>
+  ["Πάντες", "ἄνθρωποι", "τοῦ", "εἰδέναι", "ὀρέγονται", "φύσει", ".", "σημεῖον", "δ᾽", "ἡ",
+   "τῶν", "αἰσθήσεων", "ἀγάπησις", "·", "καὶ", "γὰρ", "χωρὶς", "τῆς", "χρείας", "ἀγαπῶνται",
+   "δι᾽", "αὑτάς", ",", "καὶ", "μάλιστα", "τῶν", "ἄλλων", "ἡ", "διὰ", "τῶν", "ὀμμάτων", "."]
+irb(main):004:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.tokenize
+=> ["Μῆνιν", "ἄειδε", "θεὰ", "Πηληϊάδεω", "Ἀχιλῆος"]
+```
 
+## Transliterate greek to latin (str → str) [EXPERIMENTAL]
 
-## Development
+```ruby
+irb(main):005:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.transliterate
+=> "mēnin aeide thea pēlēiadeō achilēos"
+irb(main):006:0> 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει'.transliterate
+=> "pantes anthrōpoi tou eidenai oregontai physei"
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+## Characters in string (str → array)
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+irb(main):007:0> 'θεὰ'.unicode_char
+=> ["θ", "ε", "ὰ"]
+```
 
-## Contributing
+## Points of each character in string (str → array)
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/grc. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/grc/blob/Main/CODE_OF_CONDUCT.md).
+```ruby
+irb(main):008:0> 'θεὰ'.unicode_points
+=> ["\\u03B8", "\\u03B5", "\\u1F70"]
+```
 
-## License
+## Hash of chars and unicode_points (str → hash)
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+```ruby
+irb(main):009:0> str.hash_dump
+=> {"ἄ"=>"\"\\u1F04\"", "ε"=>"\"\\u03B5\"", "ι"=>"\"\\u03B9\"", "δ"=>"\"\\u03B4\""}
+```
 
-## Code of Conduct
+## Name of each character in string (str → array)
 
-Everyone interacting in the Grc project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/grc/blob/Main/CODE_OF_CONDUCT.md).
+```ruby
+irb(main):010:0> 'θεὰ'.unicode_name
+=> ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH VARIA"]
+```
+
+## Unicode Normalization
+
+### Canonical Decomposition (NFD) (str → str)
+
+```ruby
+irb(main):011:0> str = 'ἄειδε'
+=> "ἄειδε"
+irb(main):012:0> str.unicode_char
+=> ["ἄ", "ε", "ι", "δ", "ε"]
+irb(main):013:0> str = str.nfd
+=> "ἄειδε"
+irb(main):014:0> str.unicode_char
+=> ["α", "̓", "́", "ε", "ι", "δ", "ε"]
+```
+
+### Canonical Composition (NFC) (str → str)
+
+```ruby
+irb(main):015:0> str = str.nfc
+=> "ἄειδε"
+irb(main):016:0> str.unicode_char
+=> ["ἄ", "ε", "ι", "δ", "ε"]
+```
+
+## Change type of accent
+
+```ruby
+irb(main):017:0> str = 'θεά'
+=> "θεά"
+```
+
+### Acute → Grave (str → str)
+
+```ruby
+irb(main):018:0> str = str.to_grave
+=> "θεὰ"
+```
+
+### Grave → Acute (str → str)
+
+```ruby
+irb(main):019:0> str = str.to_acute
+=> "θεά"
+```
+
+### Tonos → Oxia (str → str)
+
+```ruby
+irb(main):020:0> str = str.to_oxia
+=> "θεά"
+irb(main):021:0> str.unicode_name
+=> ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH OXIA"]
+```
+
+### Oxia → Tonos (str → str)
+
+```ruby
+irb(main):022:0> str = str.to_tonos
+=> "θεά"
+irb(main):023:0> str.unicode_name
+=> ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH TONOS"]
+```
+
+## Remove diacritical marks
+
+```ruby
+irb(main):024:0> str = 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'
+=> "Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος"
+```
+
+### From lowercase characters (str → str)
+
+```ruby
+irb(main):025:0> str.no_downcase_diacritics
+=> "Μηνιν αειδε θεα Πηληιαδεω Ἀχιληος"
+```
+
+### From uppercase characters (str → str)
+
+```ruby
+irb(main):026:0> str.no_upcase_diacritics
+=> "Μῆνιν ἄειδε θεὰ Πηληϊάδεω Αχιλῆος"
+```
+
+### From all characters (str → str)
+
+```ruby
+irb(main):027:0> str.no_diacritics
+=> "Μηνιν αειδε θεα Πηληιαδεω Αχιληος"
+```

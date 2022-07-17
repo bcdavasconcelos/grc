@@ -24,11 +24,8 @@ module Grc
 
     str = self
     # Adhoc solution for odd combinations of diacritics with capital letters
-    ars = [[/[́̀͂́́́̀͂]/, ''], [/Α͂/, 'Α'], [/Η͂/, 'Η'], [/Ί|Ὶ|Ι͂|́Ι|̀Ι|͂Ι/, 'Ι'],
-           [/Ρ̓/, 'Ρ'], [/ Ὺ| ́Υ|Υ̓|Ύ|Ὺ|Υ͂|́Υ|̀Υ|͂Υ/, 'Υ'], [/͂Ω/, 'Ω']]
-    ars.each do |a|
-      str = str.gsub(/#{a[0]}/, a[1])
-    end
+    subs = [[/[́̀͂́́́̀͂]/, ''], [/Α͂/, 'Α'], [/Η͂/, 'Η'], [/Ί|Ὶ|Ι͂|́Ι|̀Ι|͂Ι/, 'Ι'], [/Ρ̓/, 'Ρ'], [/ Ὺ| ́Υ|Υ̓|Ύ|Ὺ|Υ͂|́Υ|̀Υ|͂Υ/, 'Υ'], [/͂Ω/, 'Ω']]
+    subs.each { |a| str = str.gsub(/#{a[0]}/, a[1]) }
     str.tr('ἈἌἊἎἉἍἋἏΆᾺᾸᾹἘἜἚἙἝἛΈῈἨἬἪἮἩἭἫἯΉῊἸἼἺἾἹἽἻἿΊῚῘΪῙὈὌὊὉὍὋΌῸΡῬὙὝὛὟΎῪῨΫῩὨὬὪὮὩὭὫὯΏῺ',
            'ΑΑΑΑΑΑΑΑΑΑΑΑΕΕΕΕΕΕΕΕΗΗΗΗΗΗΗΗΗΗΙΙΙΙΙΙΙΙΙΙΙΙΙΟΟΟΟΟΟΟΟΡΡΥΥΥΥΥΥΥΥΥΩΩΩΩΩΩΩΩΩΩ')
   end
@@ -77,6 +74,18 @@ module Grc
 
     tr('ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ',
        'ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ')
+  end
+
+  def to_grave
+    return @std_error unless grc?
+
+    acute_to_grave
+  end
+
+  def to_acute
+    return @std_error unless grc?
+
+    grave_to_acute
   end
 
   def tokenize
