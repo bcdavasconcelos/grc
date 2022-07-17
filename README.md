@@ -9,6 +9,7 @@ Here we check for the presence or absence of greek letters in a string.
 ```ruby
 irb(main):001:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.grc?
 => true
+
 irb(main):002:0> 'Greekless sentence'.grc?
 => false
 ```
@@ -19,10 +20,10 @@ Now we tokenize a string into an array of greek words and punctuation.
 
 ```ruby
 irb(main):02:0> 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'.tokenize
-=>
-  ["Πάντες", "ἄνθρωποι", "τοῦ", "εἰδέναι", "ὀρέγονται", "φύσει", ".", "σημεῖον", "δ᾽", "ἡ",
+=> ["Πάντες", "ἄνθρωποι", "τοῦ", "εἰδέναι", "ὀρέγονται", "φύσει", ".", "σημεῖον", "δ᾽", "ἡ",
    "τῶν", "αἰσθήσεων", "ἀγάπησις", "·", "καὶ", "γὰρ", "χωρὶς", "τῆς", "χρείας", "ἀγαπῶνται",
    "δι᾽", "αὑτάς", ",", "καὶ", "μάλιστα", "τῶν", "ἄλλων", "ἡ", "διὰ", "τῶν", "ὀμμάτων", "."]
+
 irb(main):004:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.tokenize
 => ["Μῆνιν", "ἄειδε", "θεὰ", "Πηληϊάδεω", "Ἀχιλῆος"]
 ```
@@ -32,6 +33,7 @@ irb(main):004:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλ�
 ```ruby
 irb(main):005:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.transliterate
 => "mēnin aeide thea pēlēiadeō achilēos"
+
 irb(main):006:0> 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει'.transliterate
 => "pantes anthrōpoi tou eidenai oregontai physei"
 ```
@@ -71,12 +73,15 @@ irb(main):010:0> 'θεὰ'.unicode_name
 ```ruby
 irb(main):011:0> str = 'ἄειδε'
 => "ἄειδε"
+
 irb(main):012:0> str.unicode_char
 => ["ἄ", "ε", "ι", "δ", "ε"]
+
 irb(main):013:0> str = str.nfd
 => "ἄειδε"
+
 irb(main):014:0> str.unicode_char
-=> ["α", "̓", "́", "ε", "ι", "δ", "ε"]
+=> ["α", "̓", "́", "ε", "ι", "δ", "ε"] # Longer row of characters after decomposition
 ```
 
 ### Canonical Composition (NFC) (str → str)
@@ -84,8 +89,9 @@ irb(main):014:0> str.unicode_char
 ```ruby
 irb(main):015:0> str = str.nfc
 => "ἄειδε"
+
 irb(main):016:0> str.unicode_char
-=> ["ἄ", "ε", "ι", "δ", "ε"]
+=> ["ἄ", "ε", "ι", "δ", "ε"] # Shorter row of characters after composition
 ```
 
 ## Change type of accent
@@ -114,6 +120,7 @@ irb(main):019:0> str = str.to_acute
 ```ruby
 irb(main):020:0> str = str.to_oxia
 => "θεά"
+
 irb(main):021:0> str.unicode_name
 => ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH OXIA"]
 ```
@@ -123,6 +130,7 @@ irb(main):021:0> str.unicode_name
 ```ruby
 irb(main):022:0> str = str.to_tonos
 => "θεά"
+
 irb(main):023:0> str.unicode_name
 => ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH TONOS"]
 ```
