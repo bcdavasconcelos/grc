@@ -1,10 +1,24 @@
+## Installation
+
+Install the gem and add to the application's Gemfile by executing:
+
+    $ bundle add grc
+
+If bundler is not being used to manage dependencies, install the gem by executing:
+
+    $ gem install grc
+
+## Usage 
+
 ```ruby
 require 'grc'
 ```
 
-## String contains greek letters? (str → bool)
+## General methods
 
-Here we check for the presence or absence of greek letters in a string.
+### `grc?` (str → bool)
+
+String contains greek letters? This method will check and return `true` or `false`.
 
 ```ruby
 irb(main):001:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.grc?
@@ -14,9 +28,9 @@ irb(main):002:0> 'Greekless sentence'.grc?
 => false
 ```
 
-## Tokenize string (str → array)
+### `tokenize` (str → array)
 
-Now we tokenize a string into an array of greek words and punctuation.
+This method will tokenize a string; i.e., return an array of objects such as words and punctuation marks.
 
 ```ruby
 irb(main):02:0> 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'.tokenize
@@ -28,7 +42,9 @@ irb(main):004:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλ�
 => ["Μῆνιν", "ἄειδε", "θεὰ", "Πηληϊάδεω", "Ἀχιλῆος"]
 ```
 
-## Transliterate greek to latin (str → str) [EXPERIMENTAL]
+### `transliterate` (str → str)
+
+This is highly experimental method to transliterate greek into latin letters. Users are likely to encounter bugs and edge-cases. Please, report them.
 
 ```ruby
 irb(main):005:0> 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'.transliterate
@@ -38,28 +54,36 @@ irb(main):006:0> 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέ
 => "pantes anthrōpoi tou eidenai oregontai physei"
 ```
 
-## Characters in string (str → array)
+### `unicode_char` (str → array)
+
+This method will return an array with the unicode characters of the string as objects.
 
 ```ruby
 irb(main):007:0> 'θεὰ'.unicode_char
 => ["θ", "ε", "ὰ"]
 ```
 
-## Points of each character in string (str → array)
+### `unicode_points` (str → array)
+
+This method will return an array with unicode points (the Unicode mapping) of every character in the string.
 
 ```ruby
 irb(main):008:0> 'θεὰ'.unicode_points
 => ["\\u03B8", "\\u03B5", "\\u1F70"]
 ```
 
-## Hash of chars and unicode_points (str → hash)
+### `hash_dump`: (str → hash)
+
+Same as `unicode_points`, but returns a hash. Still experimental.
 
 ```ruby
 irb(main):009:0> str.hash_dump
 => {"ἄ"=>"\"\\u1F04\"", "ε"=>"\"\\u03B5\"", "ι"=>"\"\\u03B9\"", "δ"=>"\"\\u03B4\""}
 ```
 
-## Name of each character in string (str → array)
+### `unicode_name` (str → array)
+
+This method will return an array with the unicode name of each character in the string.
 
 ```ruby
 irb(main):010:0> 'θεὰ'.unicode_name
@@ -68,7 +92,13 @@ irb(main):010:0> 'θεὰ'.unicode_name
 
 ## Unicode Normalization
 
-### Canonical Decomposition (NFD) (str → str)
+Unicode Normalization is exceptionally important for Greek texts. It is used to normalize the text to a standard form, which is used by the computer to compare texts and for performing searches in a database.
+
+### `nfd`: Canonical Decomposition (str → str)
+
+This methods will decompose a string into its parts using the canonical decomposition method. This is useful for preparing a string to be used in searches. It will never damage the text by performing irreparable changes: a string can be recomposed using the canonical composition at any time.
+
+This is our test string. Pay attention to the length of the array in line 12.
 
 ```ruby
 irb(main):011:0> str = 'ἄειδε'
@@ -76,46 +106,97 @@ irb(main):011:0> str = 'ἄειδε'
 
 irb(main):012:0> str.unicode_char
 => ["ἄ", "ε", "ι", "δ", "ε"]
+```
 
+Now, see how the length of the array changes after we decompose characters such as  `ἄ` into `α` (alpha), `̓` (smooth breathing), `́` (acute accent). 
+
+```ruby
 irb(main):013:0> str = str.nfd
 => "ἄειδε"
 
 irb(main):014:0> str.unicode_char
-=> ["α", "̓", "́", "ε", "ι", "δ", "ε"] # Longer row of characters after decomposition
+=> ["α", "̓", "́", "ε", "ι", "δ", "ε"]
 ```
 
-### Canonical Composition (NFC) (str → str)
+If we decompose a string and then try to match a query against it, there will be no need to get the diacritics right and we'll only need the base-character.
+
+### `nfc` (str → str)
+
+Using the result string from the last example, we can compose the characters back into its precomposed form. `α` (alpha), `̓` (smooth breathing), `́` (acute accent) will be composed back into a single character, that is, `ἄ` (alpha with breathing and acute accent).
 
 ```ruby
 irb(main):015:0> str = str.nfc
 => "ἄειδε"
 
 irb(main):016:0> str.unicode_char
-=> ["ἄ", "ε", "ι", "δ", "ε"] # Shorter row of characters after composition
+=> ["ἄ", "ε", "ι", "δ", "ε"]
 ```
 
-## Change type of accent
+## Diacritical marks
+
+This is our example string for the next 3 methods.
 
 ```ruby
-irb(main):017:0> str = 'θεά'
-=> "θεά"
+irb(main):024:0> str = 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'
+=> "Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος"
 ```
 
-### Acute → Grave (str → str)
+### `no_downcase_diacritics` (str → str)
+
+Remove from lowercase characters.
+
+```ruby
+irb(main):025:0> str.no_downcase_diacritics
+=> "Μηνιν αειδε θεα Πηληιαδεω Ἀχιληος"
+```
+
+### `no_upcase_diacritics` (str → str)
+
+Remove from uppercase characters.
+
+```ruby
+irb(main):026:0> str.no_upcase_diacritics
+=> "Μῆνιν ἄειδε θεὰ Πηληϊάδεω Αχιλῆος"
+```
+
+### `no_diacritics` (str → str)
+
+Remove from all characters.
+
+```ruby
+irb(main):027:0> str.no_diacritics
+=> "Μηνιν αειδε θεα Πηληιαδεω Αχιληος"
+```
+
+## Accents
+
+### `to_grave` (str → str)
+
+Change the acute for a grave accent. Alternative name: `tonos_to_grave`
 
 ```ruby
 irb(main):018:0> str = str.to_grave
 => "θεὰ"
 ```
 
-### Grave → Acute (str → str)
+### `to_acute` (str → str)
+
+Change the grave for an acute accent. Alternative: `grave_to_acute`
 
 ```ruby
 irb(main):019:0> str = str.to_acute
 => "θεά"
 ```
 
-### Tonos → Oxia (str → str)
+### `to_oxia` (str → str)
+
+Tonos → Oxia. This should also be self-explanatory, but only if one is aware of the existence of two different types of acute accent for Greek letters in the Unicode system. If you didn't know, now you do.
+
+The `tonos` was created when Greece adopted the monotonic system. It was considered a new kind of diacritical mark. Later, this changed and everyone agreed that it is, in fact, no different from the acute accent of polytonic greek.
+
+When the Greek Extended Character Set was created specifically for polytonic Greek, however, another character was introduced to represent the acute accent. This character is called `oxia`.
+
+The end result? Both characters are visually impossible to distinguish. The `tonos` is now the same as the `oxia` and the standard way to represent the acute accent when it is the only diacritical mark of the base character. Whenever you are typing, if you include other diacritics, it will automatically turn into an `oxia`. But, keep in mind that they have different code points, so one won't match against the other.
 
 ```ruby
 irb(main):020:0> str = str.to_oxia
@@ -125,7 +206,9 @@ irb(main):021:0> str.unicode_name
 => ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH OXIA"]
 ```
 
-### Oxia → Tonos (str → str)
+### `to_tonos` (str → str)
+
+Oxia → Tonos. If in doubt about whether to use `oxia` or `tonos`, the correct answer is `tonos`. So, use this methods to convert an `oxia` to a `tonos`, in all cases where it should be used.
 
 ```ruby
 irb(main):022:0> str = str.to_tonos
@@ -135,30 +218,20 @@ irb(main):023:0> str.unicode_name
 => ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH TONOS"]
 ```
 
-## Remove diacritical marks
+## Development
 
-```ruby
-irb(main):024:0> str = 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'
-=> "Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος"
-```
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-### From lowercase characters (str → str)
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-```ruby
-irb(main):025:0> str.no_downcase_diacritics
-=> "Μηνιν αειδε θεα Πηληιαδεω Ἀχιληος"
-```
+## Contributing
 
-### From uppercase characters (str → str)
+Bug reports and pull requests are welcome on GitHub at https://github.com/bcdav/grc. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/syntax-tree/.github/blob/main/code-of-conduct.md).
 
-```ruby
-irb(main):026:0> str.no_upcase_diacritics
-=> "Μῆνιν ἄειδε θεὰ Πηληϊάδεω Αχιλῆος"
-```
+## License
 
-### From all characters (str → str)
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-```ruby
-irb(main):027:0> str.no_diacritics
-=> "Μηνιν αειδε θεα Πηληιαδεω Αχιληος"
-```
+## Code of Conduct
+
+Everyone interacting in the Grc project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/syntax-tree/.github/blob/main/code-of-conduct.md).
