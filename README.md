@@ -1,4 +1,6 @@
-[![Ruby](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml/badge.svg)](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml) [![Gem Version](https://badge.fury.io/rb/grc.svg)](https://badge.fury.io/rb/grc) [![Coverage Status](https://coveralls.io/repos/github/bcdavasconcelos/grc/badge.svg?branch=Main)](https://coveralls.io/github/bcdavasconcelos/grc?branch=Main)
+[![Ruby](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml/badge.svg)](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml) [![Gem Version](https://badge.fury.io/rb/grc.svg)](https://badge.fury.io/rb/grc) 
+
+<!--[![Coverage Status](https://coveralls.io/repos/github/bcdavasconcelos/grc/badge.svg?branch=Main)](https://coveralls.io/github/bcdavasconcelos/grc?branch=Main)-->
 
 # GRC - Ancient Greek Methods for Ruby
  
