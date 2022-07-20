@@ -96,7 +96,6 @@ module Grc
   # See pages 1-7 of http://www.tlg.uci.edu/encoding/precomposed.pdf
   # https://icu.unicode.org/design/case/greek-upper
   def grc_upcase
-
     case_map = {
       ᾀ: 'ᾈ',
       ᾁ: 'ᾉ',
@@ -181,8 +180,9 @@ module Grc
   def to_grave
     return @std_error unless grc?
 
-    tr('ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ', # Simple transform method with grave to acute mapping
-       'ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ')
+    # Simple transform method with grave to acute mapping
+    tr('ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ',
+       'ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ')
   end
 
   # `to_acute` (str → str)
@@ -190,8 +190,9 @@ module Grc
   def to_acute
     return @std_error unless grc?
 
-    tr('ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ', # Simple transform method with acute to grave mapping
-       'ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ')
+    # Simple transform method with acute to grave mapping
+    tr('ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ',
+       'ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ')
   end
 
   # `to_oxia` (str → str)
@@ -225,79 +226,3 @@ end
 class String
   include Grc
 end
-
-
-# require 'unicode/data'
-
-# 'ἀἄᾄἂᾂἆᾆᾀἁἅᾅἃᾃἇᾇᾁάάᾴὰᾲᾰᾶᾷᾱᾳἐἔἒἑἕἓέέὲἠἤᾔἢᾒἦᾖᾐἡἥᾕἣᾓἧᾗᾑήήῄὴῂῆῇῃἰἴἲἶἱἵἳἷίίὶῐῖϊϊΐῒῗῑὀὄὂὁὅὃόόὸῤῥὐὔὒὖὑὕὓὗύύὺῠῦϋΰΰΰῢῧῡὠὤᾤὢᾢὦᾦᾠὡὥᾥὣᾣὧᾧᾡώώῴὼῲῶῷῳἈἌἊἎἉἍἋἏΆᾺᾸᾹἘἜἚἙἝἛΈῈἨἬἪἮἩἭἫἯΉῊἸἼἺἾἹἽἻἿΊῚῘΪῙὈὌὊὉὍὋΌῸΡῬὙὝὛὟΎῪῨΫῩὨὬὪὮὩὭὫὯΏῺ'.nfd.each_char do |char|
-#   p char unless Unicode::Data.property?('\p{General_Category=Mn}', char)
-# end
-# p Unicode::Data.property?('\p{General_Category=Mn}', 'ἄ')
-
-# str = 'ἄνθρωπος'
-# str_nfc = str.nfc
-# str_nfd = str.nfd
-# query = 'ανθρ'
-#
-# p str_nfc.match('ανθρ')
-# p str_nfd.match('ανθρ')
-
-# ᾌ [U+1F8C GREEK CAPITAL LETTER ALPHA WITH PSILI AND OXIA AND PROSGEGRAMMENI] → ἄι [U+1F04 GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA + U+03B9 GREEK SMALL LETTER IOTA]
-# ᾌ [U+0391 GREEK CAPITAL LETTER ALPHA + U+0313 COMBINING COMMA ABOVE + U+0301 COMBINING ACUTE ACCENT + U+0345 COMBINING GREEK YPOGEGRAMMENI]
-
-
-# str = 'ᾌ'.nfc
-# p str.downcase
-# p str.upcase
-# p str.grc_upcase
-# p str.nfc.unicode_name
-# # p str.nfd.unicode_name
-# p str.nfc.downcase.unicode_name
-# p str.downcase.nfc.upcase.nfc.unicode_name
-s = 'ὊὉὍὋΌῸἈάἀἄᾄἂᾂἆéáàìò'
-# p s.no_upcase_diacritics
-# p s.no_downcase_diacritics
-# p s.no_diacritics
-str = 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'
-p str.transliterate
-
-# p 'ἀἄᾄἂᾂ'.upcase
-# puts 'ᾄἂᾂ'.grc_upcase
-
-
-# require 'unicode/data'
-
-# 'ἀἄᾄἂᾂἆᾆᾀἁἅᾅἃᾃἇᾇᾁάάᾴὰᾲᾰᾶᾷᾱᾳἐἔἒἑἕἓέέὲἠἤᾔἢᾒἦᾖᾐἡἥᾕἣᾓἧᾗᾑήήῄὴῂῆῇῃἰἴἲἶἱἵἳἷίίὶῐῖϊϊΐῒῗῑὀὄὂὁὅὃόόὸῤῥὐὔὒὖὑὕὓὗύύὺῠῦϋΰΰΰῢῧῡὠὤᾤὢᾢὦᾦᾠὡὥᾥὣᾣὧᾧᾡώώῴὼῲῶῷῳἈἌἊἎἉἍἋἏΆᾺᾸᾹἘἜἚἙἝἛΈῈἨἬἪἮἩἭἫἯΉῊἸἼἺἾἹἽἻἿΊῚῘΪῙὈὌὊὉὍὋΌῸΡῬὙὝὛὟΎῪῨΫῩὨὬὪὮὩὭὫὯΏῺ'.nfd.each_char do |char|
-#   p char unless Unicode::Data.property?('\p{General_Category=Mn}', char)
-# end
-# p Unicode::Data.property?('\p{General_Category=Mn}', 'ἄ')
-
-# str = 'ἄνθρωπος'
-# str_nfc = str.nfc
-# str_nfd = str.nfd
-# query = 'ανθρ'
-#
-# p str_nfc.match('ανθρ')
-# p str_nfd.match('ανθρ')
-
-# ᾌ [U+1F8C GREEK CAPITAL LETTER ALPHA WITH PSILI AND OXIA AND PROSGEGRAMMENI] → ἄι [U+1F04 GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA + U+03B9 GREEK SMALL LETTER IOTA]
-# ᾌ [U+0391 GREEK CAPITAL LETTER ALPHA + U+0313 COMBINING COMMA ABOVE + U+0301 COMBINING ACUTE ACCENT + U+0345 COMBINING GREEK YPOGEGRAMMENI]
-
-
-# str = 'ᾌ'.nfc
-# p str.downcase
-# p str.upcase
-# p str.grc_upcase
-# p str.nfc.unicode_name
-# # p str.nfd.unicode_name
-# p str.nfc.downcase.unicode_name
-# p str.downcase.nfc.upcase.nfc.unicode_name
-s = 'ὊὉὍὋΌῸἈάἀἄᾄἂᾂἆéáàìò'
-# p s.no_upcase_diacritics
-# p s.no_downcase_diacritics
-# p s.no_diacritics
-str = 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'
-p str.transliterate
-
-# p 'ἀἄᾄἂᾂ'.upcase
-# puts 'ᾄἂᾂ'.grc_upcase

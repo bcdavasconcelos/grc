@@ -38,27 +38,23 @@ class TestGrc < Minitest::Test
   end
 
   def test_oxia_to_tonos
-    assert_equal 'ά', 'ά'.oxia_to_tonos
+    assert_equal 'ά', 'ά'.to_tonos
     assert 'άΆ'.to_tonos.unicode_name.join =~ /TONOS/ && 'έΈ'.to_tonos.unicode_name.join =~ /TONOS/
     assert 'ήΉ'.to_tonos.unicode_name.join =~ /TONOS/ && 'ίΊΐ'.to_tonos.unicode_name.join =~ /TONOS/
     assert 'όΌ'.to_tonos.unicode_name.join =~ /TONOS/ && 'ύΎΰ'.to_tonos.unicode_name.join =~ /TONOS/
     assert 'ώΏ'.to_tonos.unicode_name.join =~ /TONOS/
   end
 
-  def test_acute_to_grave
-    assert_equal 'ά', 'ὰ'.grave_to_acute
+  def test_to_grave
+    assert_equal 'ὰ', 'ά'.to_grave
   end
 
-  def test_grave_to_acute
-    assert_equal 'ὰ', 'ά'.acute_to_grave
+  def test_to_acute
+    assert_equal 'ά', 'ὰ'.to_acute
   end
 
   def test_tokenization
     assert_equal %w[σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις · καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς], 'σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς'.tokenize
-  end
-
-  def test_unicode_char
-    assert_equal ['α'], 'α'.unicode_char
   end
 
   def test_unicode_name
