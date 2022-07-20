@@ -27,159 +27,20 @@ module Grc
   def transliterate
     return @std_error unless grc?
 
-    transliteration_map = {
-      ῥ: 'rh',
-      ͱ: '',
-      Ͳ: '',
-      ͳ: '',
-      ʹ: '',
-      ͵: '',
-      Ͷ: '',
-      ͷ: '',
-      ͺ: '',
-      ͻ: '',
-      ͼ: '',
-      ͽ: '',
-      Α: 'A',
-      Β: 'B',
-      Γ: 'G',
-      Δ: 'D',
-      Ε: 'E',
-      Ζ: 'Z',
-      Η: 'Ē',
-      Θ: 'TH',
-      Ι: 'I',
-      Κ: 'K',
-      Λ: 'L',
-      Μ: 'M',
-      Ν: 'N',
-      Ξ: 'X',
-      Ο: 'O',
-      Π: 'P',
-      Ρ: 'R',
-      Σ: 'S',
-      Τ: 'T',
-      Υ: 'Y',
-      Φ: 'PH',
-      Χ: 'CH',
-      Ψ: 'PS',
-      Ω: 'Ō',
-      α: 'a',
-      β: 'b',
-      γ: 'g',
-      δ: 'd',
-      ε: 'e',
-      ζ: 'z',
-      η: 'ē',
-      θ: 'th',
-      ι: 'i',
-      κ: 'k',
-      λ: 'l',
-      μ: 'm',
-      ν: 'n',
-      ξ: 'x',
-      ο: 'o',
-      π: 'p',
-      ρ: 'r',
-      ς: 's',
-      σ: 's',
-      τ: 't',
-      υ: 'y',
-      φ: 'ph',
-      χ: 'ch',
-      ψ: 'ps',
-      ω: 'ō',
-      Ϗ: '',
-      ϐ: '',
-      ϑ: '',
-      ϒ: '',
-      ϓ: '',
-      ϔ: '',
-      ϕ: '',
-      ϖ: '',
-      ϗ: '',
-      Ϙ: '',
-      ϙ: '',
-      Ϛ: '',
-      ϛ: '',
-      Ϝ: '',
-      ϝ: '',
-      Ϟ: '',
-      ϟ: '',
-      Ϡ: '',
-      ϡ: '',
-      Ϣ: '',
-      ϣ: '',
-      Ϥ: '',
-      ϥ: '',
-      Ϧ: '',
-      ϧ: '',
-      Ϩ: '',
-      ϩ: '',
-      Ϫ: '',
-      ϫ: '',
-      Ϭ: '',
-      ϭ: '',
-      Ϯ: '',
-      ϯ: '',
-      ϰ: '',
-      ϱ: '',
-      ϲ: '',
-      ϳ: '',
-      ϴ: '',
-      ϵ: '',
-      ϶: '',
-      Ϸ: '',
-      ϸ: '',
-      Ϲ: '',
-      Ϻ: '',
-      ϻ: '',
-      ϼ: '',
-      Ͻ: '',
-      Ͼ: '',
-      Ͽ: '',
-      gg: 'ng',
-      gk: 'nk',
-      gx: 'nx',
-      gc: 'nc',
-      rr: 'rrh',
-      ay: 'au',
-      ey: 'eu',
-      ēy: 'ēu',
-      oy: 'ou',
-      yi: 'ui'
-    }
+    result = []
     str = self
-    str = each_char.map { |c| transliteration_map[:"#{c}"] || c.nfd.gsub(/\p{Mn}/, '') }.join
-    str = str.each_char.map { |c|
-      if transliteration_map.keys.include? c
-        transliteration_map[c]
-      elsif transliteration_map.keys.include? :"#{c}"
-        transliteration_map[:"#{c}"]
-      elsif transliteration_map.keys.include? c.nfd.gsub(/\p{Mn}/, '')
-        transliteration_map[c.nfd.gsub(/\p{Mn}/, '')]
-      elsif transliteration_map.keys.include? :"#{c.nfd.gsub(/\p{Mn}/, '')}"
-        transliteration_map[:"#{c.nfd.gsub(/\p{Mn}/, '')}"]
-      else
-        c.nfd.gsub(/\p{Mn}/, '')
-      end
-    }.join
-
+    str.tokenize do |token|
+      result << if token.grc?
+                  the_word = token.gsub(/ῥ/, 'rh')
+                  the_word = the_word =~ /[ἁἅᾅἃᾃἇᾇᾁἑἕἓἡἥᾕἣᾓἧᾗᾑἱἵἳἷὁὅὃὑὕὓὗὡὥᾥὣᾣὧᾧᾡ]/ ? "h#{the_word.no_diacritics}" : the_word.no_diacritics
+                  hash.each { |k, v| the_word = the_word.gsub(/#{k}/, v) }
+                  the_word
+                else
+                  word
+                end
     end
-  # result = []
-    # str = self
-    # str.split.each do |word|
-    #   result << if word.grc?
-    #               the_word = word.gsub(/ῥ/, 'rh')
-    #               the_word = the_word =~ /[ἁἅᾅἃᾃἇᾇᾁἑἕἓἡἥᾕἣᾓἧᾗᾑἱἵἳἷὁὅὃὑὕὓὗὡὥᾥὣᾣὧᾧᾡ]/ ? "h#{the_word.no_diacritics}" : the_word.no_diacritics
-    #               hash.each { |k, v| the_word = the_word.gsub(/#{k}/, v) }
-    #               the_word
-    #             else
-    #               word
-    #             end
-    # end
-    # result.join(' ')
-  # end
+    result.join(' ')
+  end
 
   # Unicode Inspection Methods
 
@@ -233,6 +94,7 @@ module Grc
   # Default `upcase` methods strips diacritical marks from greek characters.
   # This method returns the corresponding uppercase version of string for greek characters preserving diacritical marks.
   # See pages 1-7 of http://www.tlg.uci.edu/encoding/precomposed.pdf
+  # https://icu.unicode.org/design/case/greek-upper
   def grc_upcase
 
     case_map = {
@@ -363,6 +225,44 @@ end
 class String
   include Grc
 end
+
+
+# require 'unicode/data'
+
+# 'ἀἄᾄἂᾂἆᾆᾀἁἅᾅἃᾃἇᾇᾁάάᾴὰᾲᾰᾶᾷᾱᾳἐἔἒἑἕἓέέὲἠἤᾔἢᾒἦᾖᾐἡἥᾕἣᾓἧᾗᾑήήῄὴῂῆῇῃἰἴἲἶἱἵἳἷίίὶῐῖϊϊΐῒῗῑὀὄὂὁὅὃόόὸῤῥὐὔὒὖὑὕὓὗύύὺῠῦϋΰΰΰῢῧῡὠὤᾤὢᾢὦᾦᾠὡὥᾥὣᾣὧᾧᾡώώῴὼῲῶῷῳἈἌἊἎἉἍἋἏΆᾺᾸᾹἘἜἚἙἝἛΈῈἨἬἪἮἩἭἫἯΉῊἸἼἺἾἹἽἻἿΊῚῘΪῙὈὌὊὉὍὋΌῸΡῬὙὝὛὟΎῪῨΫῩὨὬὪὮὩὭὫὯΏῺ'.nfd.each_char do |char|
+#   p char unless Unicode::Data.property?('\p{General_Category=Mn}', char)
+# end
+# p Unicode::Data.property?('\p{General_Category=Mn}', 'ἄ')
+
+# str = 'ἄνθρωπος'
+# str_nfc = str.nfc
+# str_nfd = str.nfd
+# query = 'ανθρ'
+#
+# p str_nfc.match('ανθρ')
+# p str_nfd.match('ανθρ')
+
+# ᾌ [U+1F8C GREEK CAPITAL LETTER ALPHA WITH PSILI AND OXIA AND PROSGEGRAMMENI] → ἄι [U+1F04 GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA + U+03B9 GREEK SMALL LETTER IOTA]
+# ᾌ [U+0391 GREEK CAPITAL LETTER ALPHA + U+0313 COMBINING COMMA ABOVE + U+0301 COMBINING ACUTE ACCENT + U+0345 COMBINING GREEK YPOGEGRAMMENI]
+
+
+# str = 'ᾌ'.nfc
+# p str.downcase
+# p str.upcase
+# p str.grc_upcase
+# p str.nfc.unicode_name
+# # p str.nfd.unicode_name
+# p str.nfc.downcase.unicode_name
+# p str.downcase.nfc.upcase.nfc.unicode_name
+s = 'ὊὉὍὋΌῸἈάἀἄᾄἂᾂἆéáàìò'
+# p s.no_upcase_diacritics
+# p s.no_downcase_diacritics
+# p s.no_diacritics
+str = 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'
+p str.transliterate
+
+# p 'ἀἄᾄἂᾂ'.upcase
+# puts 'ᾄἂᾂ'.grc_upcase
 
 
 # require 'unicode/data'
