@@ -8,151 +8,62 @@ module Grc
 
   @std_error = 'ERROR: String does not contain any greek. Summon the muse and try again.'
 
+  # General methods
+
+  # `grc?` (str → bool)
+  # Returns true if the string contains greek characters.
   def grc?
     !scan(/(\p{Greek})/).empty?
   end
 
-  def no_downcase_diacritics
-    return @std_error unless grc?
-
-    tr('ἀἄᾄἂᾂἆᾆᾀἁἅᾅἃᾃἇᾇᾁάάᾴὰᾲᾰᾶᾷᾱᾳἐἔἒἑἕἓέέὲἠἤᾔἢᾒἦᾖᾐἡἥᾕἣᾓἧᾗᾑήήῄὴῂῆῇῃἰἴἲἶἱἵἳἷίίὶῐῖϊϊΐῒῗῑὀὄὂὁὅὃόόὸῤῥὐὔὒὖὑὕὓὗύύὺῠῦϋΰΰΰῢῧῡὠὤᾤὢᾢὦᾦᾠὡὥᾥὣᾣὧᾧᾡώώῴὼῲῶῷῳ',
-       'ααααααααααααααααααααααααααεεεεεεεεεηηηηηηηηηηηηηηηηηηηηηηηηιιιιιιιιιιιιιιιιιιιοοοοοοοοορρυυυυυυυυυυυυυυυυυυυυωωωωωωωωωωωωωωωωωωωωωωωω')
-  end
-
-  def no_upcase_diacritics
-    return @std_error unless grc?
-
-    str = self
-    # Adhoc solution for odd combinations of diacritics with capital letters
-    subs = [[/[́̀͂́́́̀͂]/, ''], [/Α͂/, 'Α'], [/Η͂/, 'Η'], [/Ί|Ὶ|Ι͂|́Ι|̀Ι|͂Ι/, 'Ι'], [/Ρ̓/, 'Ρ'], [/ Ὺ| ́Υ|Υ̓|Ύ|Ὺ|Υ͂|́Υ|̀Υ|͂Υ/, 'Υ'], [/͂Ω/, 'Ω']]
-    subs.each { |a| str = str.gsub(/#{a[0]}/, a[1]) }
-    str.tr('ἈἌἊἎἉἍἋἏΆᾺᾸᾹἘἜἚἙἝἛΈῈἨἬἪἮἩἭἫἯΉῊἸἼἺἾἹἽἻἿΊῚῘΪῙὈὌὊὉὍὋΌῸΡῬὙὝὛὟΎῪῨΫῩὨὬὪὮὩὭὫὯΏῺ',
-           'ΑΑΑΑΑΑΑΑΑΑΑΑΕΕΕΕΕΕΕΕΗΗΗΗΗΗΗΗΗΗΙΙΙΙΙΙΙΙΙΙΙΙΙΟΟΟΟΟΟΟΟΡΡΥΥΥΥΥΥΥΥΥΩΩΩΩΩΩΩΩΩΩ')
-  end
-
-  def no_diacritics
-    return @std_error unless grc?
-
-    no_downcase_diacritics.no_upcase_diacritics
-  end
-
-  def tonos_to_oxia
-    return @std_error unless grc?
-
-    tr('άΆέΈήΉίΊΐόΌύΎΰώΏ',
-       'άΆέΈήΉίΊΐόΌύΎΰώΏ')
-  end
-
-  def to_oxia
-    return @std_error unless grc?
-
-    tonos_to_oxia
-  end
-
-  def oxia_to_tonos
-    return @std_error unless grc?
-
-    tr('άΆέΈήΉίΊΐόΌύΎΰώΏ',
-       'άΆέΈήΉίΊΐόΌύΎΰώΏ')
-  end
-
-  def to_tonos
-    return @std_error unless grc?
-
-    oxia_to_tonos
-  end
-
-  def acute_to_grave
-    return @std_error unless grc?
-
-    tr('ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ',
-       'ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ')
-  end
-
-  def grave_to_acute
-    return @std_error unless grc?
-
-    tr('ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ',
-       'ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ')
-  end
-
-  def to_grave
-    return @std_error unless grc?
-
-    acute_to_grave
-  end
-
-  def to_acute
-    return @std_error unless grc?
-
-    grave_to_acute
-  end
-
+  # `tokenize` (str → array)
+  # Returns an array of tokens from the string.
   def tokenize
     gsub(/([[:punct:]]|·|·|‧|⸱|𐄁|\.|;|;)/, ' \1').split
   end
 
-  def unicode_char
-    each_char.map(&:to_s)
-  end
-
-  def unicode_name
-    require 'unicode/name'
-    each_char.map { |character| Unicode::Name.of character }
-  end
-
-  def unicode_points
-    unpack('U*').map { |i| "\\u#{i.to_s(16).rjust(4, "0").upcase}" }
-  end
-
-  def hash_dump
-    hash = {}
-    each_char do |character|
-      hash[character] = character.dump
-    end
-    hash
-  end
-
+  # `transliterate` (str → str)
+  # Returns a string with greek characters replaced with their transliteration.
   def transliterate
     return @std_error unless grc?
 
-    hash = {
+    transliteration_map = {
       ῥ: 'rh',
       ͱ: '',
       Ͳ: '',
       ͳ: '',
       ʹ: '',
-      "\u0375": '',
+      ͵: '',
       Ͷ: '',
       ͷ: '',
       ͺ: '',
       ͻ: '',
       ͼ: '',
       ͽ: '',
-      Α: 'a',
-      Β: 'b',
-      Γ: 'g',
-      Δ: 'd',
-      Ε: 'e',
-      Ζ: 'z',
-      Η: 'ē',
-      Θ: 'th',
-      Ι: 'i',
-      Κ: 'k',
-      Λ: 'l',
-      Μ: 'm',
-      Ν: 'n',
-      Ξ: 'x',
-      Ο: 'o',
-      Π: 'p',
-      Ρ: 'r',
-      Σ: 's',
-      Τ: 't',
-      Υ: 'y',
-      Φ: 'ph',
-      Χ: 'ch',
-      Ψ: 'ps',
-      Ω: 'ō',
+      Α: 'A',
+      Β: 'B',
+      Γ: 'G',
+      Δ: 'D',
+      Ε: 'E',
+      Ζ: 'Z',
+      Η: 'Ē',
+      Θ: 'TH',
+      Ι: 'I',
+      Κ: 'K',
+      Λ: 'L',
+      Μ: 'M',
+      Ν: 'N',
+      Ξ: 'X',
+      Ο: 'O',
+      Π: 'P',
+      Ρ: 'R',
+      Σ: 'S',
+      Τ: 'T',
+      Υ: 'Y',
+      Φ: 'PH',
+      Χ: 'CH',
+      Ψ: 'PS',
+      Ω: 'Ō',
       α: 'a',
       β: 'b',
       γ: 'g',
@@ -217,7 +128,7 @@ module Grc
       ϳ: '',
       ϴ: '',
       ϵ: '',
-      "\u03F6": '',
+      ϶: '',
       Ϸ: '',
       ϸ: '',
       Ϲ: '',
@@ -231,7 +142,6 @@ module Grc
       gk: 'nk',
       gx: 'nx',
       gc: 'nc',
-      "\u{0314}": 'rh',
       rr: 'rrh',
       ay: 'au',
       ey: 'eu',
@@ -239,30 +149,255 @@ module Grc
       oy: 'ou',
       yi: 'ui'
     }
-    result = []
     str = self
-    str.split.each do |word|
-      result << if word.grc?
-                  the_word = word.gsub(/ῥ/, 'rh')
-                  the_word = the_word =~ /[ἁἅᾅἃᾃἇᾇᾁἑἕἓἡἥᾕἣᾓἧᾗᾑἱἵἳἷὁὅὃὑὕὓὗὡὥᾥὣᾣὧᾧᾡ]/ ? "h#{the_word.no_diacritics}" : the_word.no_diacritics
-                  hash.each { |k, v| the_word = the_word.gsub(/#{k}/, v) }
-                  the_word
-                else
-                  word
-                end
+    str = each_char.map { |c| transliteration_map[:"#{c}"] || c.nfd.gsub(/\p{Mn}/, '') }.join
+    str = str.each_char.map { |c|
+      if transliteration_map.keys.include? c
+        transliteration_map[c]
+      elsif transliteration_map.keys.include? :"#{c}"
+        transliteration_map[:"#{c}"]
+      elsif transliteration_map.keys.include? c.nfd.gsub(/\p{Mn}/, '')
+        transliteration_map[c.nfd.gsub(/\p{Mn}/, '')]
+      elsif transliteration_map.keys.include? :"#{c.nfd.gsub(/\p{Mn}/, '')}"
+        transliteration_map[:"#{c.nfd.gsub(/\p{Mn}/, '')}"]
+      else
+        c.nfd.gsub(/\p{Mn}/, '')
+      end
+    }.join
+
     end
-    result.join(' ')
+  # result = []
+    # str = self
+    # str.split.each do |word|
+    #   result << if word.grc?
+    #               the_word = word.gsub(/ῥ/, 'rh')
+    #               the_word = the_word =~ /[ἁἅᾅἃᾃἇᾇᾁἑἕἓἡἥᾕἣᾓἧᾗᾑἱἵἳἷὁὅὃὑὕὓὗὡὥᾥὣᾣὧᾧᾡ]/ ? "h#{the_word.no_diacritics}" : the_word.no_diacritics
+    #               hash.each { |k, v| the_word = the_word.gsub(/#{k}/, v) }
+    #               the_word
+    #             else
+    #               word
+    #             end
+    # end
+    # result.join(' ')
+  # end
+
+  # Unicode Inspection Methods
+
+  # `unicode_points` (str → array)
+  # Returns an array of unicode points from the string.
+  def unicode_points
+    unpack('U*').map { |i| "\\u#{i.to_s(16).rjust(4, "0").upcase}" }
   end
 
+  # `hash_dump`: (str → hash)
+  # Returns a hash of the string's unicode points (Char: Unicode_points).
+  def hash_dump
+    hash = {}
+    each_char do |character|
+      hash[character] = character.dump
+    end
+    hash
+  end
+
+  # `unicode_name` (str → array)
+  # Returns an array of unicode names from the string.
+  def unicode_name
+    require 'unicode/name'
+    each_char.map { |character| Unicode::Name.of character }
+  end
+
+  # Unicode Normalization
+
+  # `nfd` (str → str)
+  # Returns a string with the canonical decomposition of the string.
+  def nfd
+    unicode_normalize(:nfd)
+  end
+
+  # `nfc` (str → str)
+  # Returns a string with the canonical composition of the string.
   def nfc
     unicode_normalize(:nfc)
   end
 
-  def nfd
-    unicode_normalize(:nfd)
+  # Case folding
+
+  # `grc_downcase` (str → str)
+  # Returns the lowercase version of string for greek characters resolving confusable characters.
+  # See https://www.w3.org/TR/charmod-norm/#PreNormalization
+  def grc_downcase
+    nfd.downcase.nfc
+  end
+
+  # `grc_upcase` (str → str)
+  # Default `upcase` methods strips diacritical marks from greek characters.
+  # This method returns the corresponding uppercase version of string for greek characters preserving diacritical marks.
+  # See pages 1-7 of http://www.tlg.uci.edu/encoding/precomposed.pdf
+  def grc_upcase
+
+    case_map = {
+      ᾀ: 'ᾈ',
+      ᾁ: 'ᾉ',
+      ᾂ: 'ᾊ',
+      ᾃ: 'ᾋ',
+      ᾄ: 'ᾌ',
+      ᾅ: 'ᾍ',
+      ᾆ: 'ᾎ',
+      ᾇ: 'ᾏ',
+      ᾐ: 'ᾘ',
+      ᾑ: 'ᾙ',
+      ᾒ: 'ᾚ',
+      ᾓ: 'ᾛ',
+      ᾔ: 'ᾜ',
+      ᾕ: 'ᾝ',
+      ᾖ: 'ᾞ',
+      ᾗ: 'ᾟ',
+      ᾠ: 'ᾨ',
+      ᾡ: 'ᾩ',
+      ᾢ: 'ᾪ',
+      ᾣ: 'ᾫ',
+      ᾤ: 'ᾬ',
+      ᾥ: 'ᾭ',
+      ᾦ: 'ᾮ',
+      ᾧ: 'ᾯ',
+      ᾳ: 'ᾼ',
+      ῃ: 'ῌ',
+      ῳ: 'ῼ'
+    }
+
+    nfc.each_char.map do |char|
+      if char.grc?
+        case_map[:"#{char}"] || char.upcase
+      else
+        char
+      end
+    end.join
+  end
+
+  # Diacritical marks
+
+  # `no_downcase_diacritics` (str → str)
+  # Returns a string with the diacritics removed from lowercase characters.
+  def no_downcase_diacritics
+    return @std_error unless grc?
+
+    each_char.map do |char| # Loop through each character
+      if char.grc? && char.lower? # If character is greek and lowercase
+        char.nfd.gsub(/\p{Mn}/, '').nfc # decompose, remove non-spacing markers (diacritics), recompose and return
+      else # else
+        char # return char
+      end
+    end.join # end char loop
+  end
+
+  # `no_upcase_diacritics` (str → str)
+  # Returns a string with the diacritics removed from uppercase characters.
+  def no_upcase_diacritics
+    return @std_error unless grc?
+
+    each_char.map do |char| # Loop through each character
+      if char.grc? && char.upper? # If character is greek and uppercase
+        char.nfd.gsub(/\p{Mn}/, '').nfc # Decompose, remove non-spacing markers (diacritics), recompose and return
+      else # else
+        char # Return char
+      end
+    end.join
+  end
+
+  # `no_diacritics` (str → str)
+  # Returns a string with the diacritics removed.
+  def no_diacritics
+    return @std_error unless grc?
+
+    no_downcase_diacritics.no_upcase_diacritics
+  end
+
+  # Accents
+
+  # `to_grave` (str → str)
+  # Returns a string with the grave replacing the acute accent.
+  def to_grave
+    return @std_error unless grc?
+
+    tr('ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ', # Simple transform method with grave to acute mapping
+       'ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ')
+  end
+
+  # `to_acute` (str → str)
+  # Returns a string with the acute replacing the grave accent.
+  def to_acute
+    return @std_error unless grc?
+
+    tr('ἄᾄἅᾅάάᾴἔἕέέἤᾔἥᾕήήῄἴἵίίΐὄὅόόὔὕύύΰΰὤᾤὥᾥώῴ', # Simple transform method with acute to grave mapping
+       'ἂᾂἃᾃὰὰᾲἒἓὲὲἢᾒἣᾓὴὴῂἲἳὶὶῒὂὃὸὸὒὓὺὺῢῢὢᾢὣᾣὼῲ')
+  end
+
+  # `to_oxia` (str → str)
+  # Returns a string with the oxia replacing the tonos.
+  def to_oxia
+    return @std_error unless grc?
+
+    tr('άΆέΈήΉίΊΐόΌύΎΰώΏ',
+       'άΆέΈήΉίΊΐόΌύΎΰώΏ')
+  end
+
+  # `to_tonos` (str → str)
+  # Returns a string with the tonos replacing the oxia.
+  # See page 9 of http://www.tlg.uci.edu/encoding/precomposed.pdf
+  def to_tonos
+    return @std_error unless grc?
+
+    tr('άΆέΈήΉίΊΐόΌύΎΰώΏ',
+       'άΆέΈήΉίΊΐόΌύΎΰώΏ')
+  end
+
+  def upper?
+    !!match(/\p{Upper}/)
+  end
+
+  def lower?
+    !!match(/\p{Lower}/)
   end
 end
 
 class String
   include Grc
 end
+
+
+# require 'unicode/data'
+
+# 'ἀἄᾄἂᾂἆᾆᾀἁἅᾅἃᾃἇᾇᾁάάᾴὰᾲᾰᾶᾷᾱᾳἐἔἒἑἕἓέέὲἠἤᾔἢᾒἦᾖᾐἡἥᾕἣᾓἧᾗᾑήήῄὴῂῆῇῃἰἴἲἶἱἵἳἷίίὶῐῖϊϊΐῒῗῑὀὄὂὁὅὃόόὸῤῥὐὔὒὖὑὕὓὗύύὺῠῦϋΰΰΰῢῧῡὠὤᾤὢᾢὦᾦᾠὡὥᾥὣᾣὧᾧᾡώώῴὼῲῶῷῳἈἌἊἎἉἍἋἏΆᾺᾸᾹἘἜἚἙἝἛΈῈἨἬἪἮἩἭἫἯΉῊἸἼἺἾἹἽἻἿΊῚῘΪῙὈὌὊὉὍὋΌῸΡῬὙὝὛὟΎῪῨΫῩὨὬὪὮὩὭὫὯΏῺ'.nfd.each_char do |char|
+#   p char unless Unicode::Data.property?('\p{General_Category=Mn}', char)
+# end
+# p Unicode::Data.property?('\p{General_Category=Mn}', 'ἄ')
+
+# str = 'ἄνθρωπος'
+# str_nfc = str.nfc
+# str_nfd = str.nfd
+# query = 'ανθρ'
+#
+# p str_nfc.match('ανθρ')
+# p str_nfd.match('ανθρ')
+
+# ᾌ [U+1F8C GREEK CAPITAL LETTER ALPHA WITH PSILI AND OXIA AND PROSGEGRAMMENI] → ἄι [U+1F04 GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA + U+03B9 GREEK SMALL LETTER IOTA]
+# ᾌ [U+0391 GREEK CAPITAL LETTER ALPHA + U+0313 COMBINING COMMA ABOVE + U+0301 COMBINING ACUTE ACCENT + U+0345 COMBINING GREEK YPOGEGRAMMENI]
+
+
+# str = 'ᾌ'.nfc
+# p str.downcase
+# p str.upcase
+# p str.grc_upcase
+# p str.nfc.unicode_name
+# # p str.nfd.unicode_name
+# p str.nfc.downcase.unicode_name
+# p str.downcase.nfc.upcase.nfc.unicode_name
+s = 'ὊὉὍὋΌῸἈάἀἄᾄἂᾂἆéáàìò'
+# p s.no_upcase_diacritics
+# p s.no_downcase_diacritics
+# p s.no_diacritics
+str = 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'
+p str.transliterate
+
+# p 'ἀἄᾄἂᾂ'.upcase
+# puts 'ᾄἂᾂ'.grc_upcase

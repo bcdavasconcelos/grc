@@ -1,3 +1,7 @@
+# GRC - Ancient Greek Methods for Ruby
+ 
+Several problems can come up when using unicode greek characters. This gem solves some of them.
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
@@ -33,7 +37,7 @@ irb(main):002:0> 'Greekless sentence'.grc?
 This method will tokenize a string; i.e., return an array of objects such as words and punctuation marks.
 
 ```ruby
-irb(main):02:0> 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'.tokenize
+irb(main):003:0> 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'.tokenize
 => ["Πάντες", "ἄνθρωποι", "τοῦ", "εἰδέναι", "ὀρέγονται", "φύσει", ".", "σημεῖον", "δ᾽", "ἡ",
    "τῶν", "αἰσθήσεων", "ἀγάπησις", "·", "καὶ", "γὰρ", "χωρὶς", "τῆς", "χρείας", "ἀγαπῶνται",
    "δι᾽", "αὑτάς", ",", "καὶ", "μάλιστα", "τῶν", "ἄλλων", "ἡ", "διὰ", "τῶν", "ὀμμάτων", "."]
@@ -54,14 +58,7 @@ irb(main):006:0> 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέ
 => "pantes anthrōpoi tou eidenai oregontai physei"
 ```
 
-### `unicode_char` (str → array)
-
-This method will return an array with the unicode characters of the string as objects.
-
-```ruby
-irb(main):007:0> 'θεὰ'.unicode_char
-=> ["θ", "ε", "ὰ"]
-```
+## Unicode Inspection Methods
 
 ### `unicode_points` (str → array)
 
@@ -98,27 +95,86 @@ Unicode Normalization is exceptionally important for Greek texts. It is used to 
 
 This methods will decompose a string into its parts using the canonical decomposition method. This is useful for preparing a string to be used in searches. It will never damage the text by performing irreparable changes: a string can be recomposed using the canonical composition at any time.
 
-This is our test string. Pay attention to the length of the array in line 12.
+This is our test string. Pay attention to the first character.
 
 ```ruby
-irb(main):011:0> str = 'ἄειδε'
-=> "ἄειδε"
-
-irb(main):012:0> str.unicode_char
-=> ["ἄ", "ε", "ι", "δ", "ε"]
+irb(main):011:0> str = 'ἄνθρωπος'
+=> "ἄνθρωπος"
+irb(main):012:0> str.unicode_name
+=>
+  ["GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA",
+   "GREEK SMALL LETTER NU",
+   "GREEK SMALL LETTER THETA",
+   "GREEK SMALL LETTER RHO",
+   "GREEK SMALL LETTER OMEGA",
+   "GREEK SMALL LETTER PI",
+   "GREEK SMALL LETTER OMICRON",
+   "GREEK SMALL LETTER FINAL SIGMA"]
 ```
 
-Now, see how the length of the array changes after we decompose characters such as  `ἄ` into `α` (alpha), `̓` (smooth breathing), `́` (acute accent). 
+Now, we decomposed the precomposed unicode characters. 
 
 ```ruby
 irb(main):013:0> str = str.nfd
-=> "ἄειδε"
-
-irb(main):014:0> str.unicode_char
-=> ["α", "̓", "́", "ε", "ι", "δ", "ε"]
+=> "ἄνθρωπος"
+irb(main):014:0> str.unicode_name
+=>
+  ["GREEK SMALL LETTER ALPHA",
+   "COMBINING COMMA ABOVE",
+   "COMBINING ACUTE ACCENT",
+   "GREEK SMALL LETTER NU",
+   "GREEK SMALL LETTER THETA",
+   "GREEK SMALL LETTER RHO",
+   "GREEK SMALL LETTER OMEGA",
+   "GREEK SMALL LETTER PI",
+   "GREEK SMALL LETTER OMICRON",
+   "GREEK SMALL LETTER FINAL SIGMA"]
 ```
 
-If we decompose a string and then try to match a query against it, there will be no need to get the diacritics right and we'll only need the base-character.
+Notice how `ἄ` (`GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA`) becomes `α` (`GREEK SMALL LETTER ALPHA`), `̓` (`COMBINING COMMA ABOVE`), `́` (`COMBINING ACUTE ACCENT`). If we decompose a string and then try to match a query against it, there will be no need to get the diacritics right and we'll only need the base-character.
+
+Let us try to match the query `ανθρω` against the string in different versions.
+
+str_nfc = str.nfc
+str_nfd = str.nfd
+
+```ruby
+irb(main):015:0> str_nfc.match('ανθρω')
+=> #<MatchData "ανθρω" "ανθρω">
+irb(main):016:0> str_nfd.match('ανθρω')
+=> #<MatchData "ανθρω" "ανθρω">
+irb(main):017:0> str_nfc.match('ανθρω')
+=> #<MatchData "ανθρω" "ανθρω">
+irb(main):018:0> str_nfd.match('ανθρω')
+=> #<MatchData "ανθρω" "ανθρω">
+irb(main):019:0> str_nfc.match('ανθρω')
+=> #<MatchData "ανθρω" "ανθρω">
+irb(main):020:0> str_nfd.match('ανθρω')
+=> #<MatchData "ανθρω" "ανθρω">
+irb(main):021:0> str_nfc.match('ανθρω')
+=> #<MatchData "ανθρω" "ανθρω">
+  
+irb(main):015:0> str.match('ανθρω')
+=> #<MatchData "ανθρω" 1:"ανθρω">
+irb(main):016:0> str.match('ανθρω').to_s
+=> "ανθρω"
+irb(main):017:0> str.match('ανθρω').to_s.nfd
+=> "ανθρω"
+irb(main):018:0> str.match('ανθρω').to_s.nfd.unicode_name
+=> ["GREEK SMALL LETTER ALPHA", "GREEK SMALL LETTER NU", "GREEK SMALL LETTER THETA", "GREEK SMALL LETTER RHO", "GREEK SMALL LETTER OMEGA", "GREEK SMALL LETTER PI", "GREEK SMALL LETTER OMICRON", "GREEK SMALL LETTER FINAL SIGMA"]
+```
+
+irb(main):015:0> str.match('ἄνθρωπος')
+=> #<MatchData "ἄνθρωπος">
+irb(main):016:0> str.match('ἄνθρωπος').to_s
+=> "ἄνθρωπος"
+irb(main):017:0> str.match('ἄνθρωπος').to_s.nfd
+=> "ἄνθρωπος"
+irb(main):018:0> str.match('ἄνθρωπος').to_s.nfd.match('ἄνθρωπος')
+=> #<MatchData "ἄνθρωπος">
+irb(main):019:0> str.match('ἄνθρωπος').to_s.nfd.match('ἄνθρωπος').to_s
+=> "ἄνθρωπος"
+```
 
 ### `nfc` (str → str)
 
@@ -126,10 +182,17 @@ Using the result string from the last example, we can compose the characters bac
 
 ```ruby
 irb(main):015:0> str = str.nfc
-=> "ἄειδε"
-
-irb(main):016:0> str.unicode_char
-=> ["ἄ", "ε", "ι", "δ", "ε"]
+=> "ἄνθρωπος"
+irb(main):016:0> str.unicode_name
+=>
+  ["GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA",
+   "GREEK SMALL LETTER NU",
+   "GREEK SMALL LETTER THETA",
+   "GREEK SMALL LETTER RHO",
+   "GREEK SMALL LETTER OMEGA",
+   "GREEK SMALL LETTER PI",
+   "GREEK SMALL LETTER OMICRON",
+   "GREEK SMALL LETTER FINAL SIGMA"]
 ```
 
 ## Diacritical marks
@@ -137,7 +200,7 @@ irb(main):016:0> str.unicode_char
 This is our example string for the next 3 methods.
 
 ```ruby
-irb(main):024:0> str = 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'
+irb(main):017:0> str = 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος'
 => "Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχιλῆος"
 ```
 
@@ -146,7 +209,7 @@ irb(main):024:0> str = 'Μῆνιν ἄειδε θεὰ Πηληϊάδεω Ἀχ
 Remove from lowercase characters.
 
 ```ruby
-irb(main):025:0> str.no_downcase_diacritics
+irb(main):018:0> str.no_downcase_diacritics
 => "Μηνιν αειδε θεα Πηληιαδεω Ἀχιληος"
 ```
 
@@ -155,7 +218,7 @@ irb(main):025:0> str.no_downcase_diacritics
 Remove from uppercase characters.
 
 ```ruby
-irb(main):026:0> str.no_upcase_diacritics
+irb(main):019:0> str.no_upcase_diacritics
 => "Μῆνιν ἄειδε θεὰ Πηληϊάδεω Αχιλῆος"
 ```
 
@@ -164,7 +227,7 @@ irb(main):026:0> str.no_upcase_diacritics
 Remove from all characters.
 
 ```ruby
-irb(main):027:0> str.no_diacritics
+irb(main):020:0> str.no_diacritics
 => "Μηνιν αειδε θεα Πηληιαδεω Αχιληος"
 ```
 
@@ -175,7 +238,7 @@ irb(main):027:0> str.no_diacritics
 Change the acute for a grave accent. Alternative name: `tonos_to_grave`
 
 ```ruby
-irb(main):018:0> str = str.to_grave
+irb(main):021:0> str = str.to_grave
 => "θεὰ"
 ```
 
@@ -184,7 +247,7 @@ irb(main):018:0> str = str.to_grave
 Change the grave for an acute accent. Alternative: `grave_to_acute`
 
 ```ruby
-irb(main):019:0> str = str.to_acute
+irb(main):022:0> str = str.to_acute
 => "θεά"
 ```
 
@@ -199,10 +262,10 @@ When the Greek Extended Character Set was created specifically for polytonic Gre
 The end result? Both characters are visually impossible to distinguish. The `tonos` is now the same as the `oxia` and the standard way to represent the acute accent when it is the only diacritical mark of the base character. Whenever you are typing, if you include other diacritics, it will automatically turn into an `oxia`. But, keep in mind that they have different code points, so one won't match against the other.
 
 ```ruby
-irb(main):020:0> str = str.to_oxia
+irb(main):023:0> str = str.to_oxia
 => "θεά"
 
-irb(main):021:0> str.unicode_name
+irb(main):024:0> str.unicode_name
 => ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH OXIA"]
 ```
 
@@ -211,10 +274,10 @@ irb(main):021:0> str.unicode_name
 Oxia → Tonos. If in doubt about whether to use `oxia` or `tonos`, the correct answer is `tonos`. So, use this methods to convert an `oxia` to a `tonos`, in all cases where it should be used.
 
 ```ruby
-irb(main):022:0> str = str.to_tonos
+irb(main):025:0> str = str.to_tonos
 => "θεά"
 
-irb(main):023:0> str.unicode_name
+irb(main):026:0> str.unicode_name
 => ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH TONOS"]
 ```
 

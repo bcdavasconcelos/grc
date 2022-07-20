@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0af4ebef-9f59-4a85-9f65-0d8163baa737" name="Changes" comment="README updated">
+      <change beforePath="$PROJECT_DIR$/.idea/grc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/grc.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/grc.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/grc.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test_grc.rb" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_grc.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,10 +40,11 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;ToolWindowGitHub Copilot.ShowToolbar&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/bcdav/Dropbox/Developer/Ruby/Gems/grc&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;ruby.rails.projectView.checked&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.intentionPowerPack&quot;
   }
 }</component>
   <component name="RunManager" selected="Ruby.grc">
@@ -58,6 +64,19 @@
       </EXTENSION>
       <EXTENSION ID="org.jetbrains.plugins.ruby.rails.run.RailsRunConfigurationExtension" SCRATCH_USE_RAILS_RUNNER="false" />
       <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$MODULE_DIR$/lib/grc.rb" />
+      <RUBY_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="scratch_2" type="RubyRunConfigurationType" factoryName="Ruby" temporary="true">
+      <RUBY_RUN_CONFIG NAME="RUBY_ARGS" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="WORK DIR" VALUE="$PROJECT_DIR$" />
+      <RUBY_RUN_CONFIG NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RUBY_RUN_CONFIG NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RUBY_RUN_CONFIG NAME="myPassParentEnvs" VALUE="true" />
+      <EXTENSION ID="BundlerRunConfigurationExtension" BUNDLE_MODE="AUTO" bundleExecEnabled="true" />
+      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
+      <EXTENSION ID="org.jetbrains.plugins.ruby.rails.run.RailsRunConfigurationExtension" SCRATCH_USE_RAILS_RUNNER="false" />
+      <RUBY_RUN_CONFIG NAME="SCRIPT_PATH" VALUE="$APPLICATION_CONFIG_DIR$/scratches/scratch_2.rb" />
       <RUBY_RUN_CONFIG NAME="SCRIPT_ARGS" VALUE="" />
       <method v="2" />
     </configuration>
@@ -154,44 +173,13 @@
       <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_unicode_name" type="TestUnitRunConfigurationType" factoryName="Test::Unit/Shoulda/Minitest" temporary="true" nameIsGenerated="true">
-      <module name="grc" />
-      <predefined_log_file enabled="true" id="RUBY_TESTUNIT" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-Ilib:test" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="$MODULE_DIR$" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
-      <envs>
-        <env name="JRUBY_OPTS" value="-X+O" />
-      </envs>
-      <EXTENSION ID="BundlerRunConfigurationExtension" BUNDLE_MODE="AUTO" bundleExecEnabled="true" />
-      <EXTENSION ID="JRubyRunConfigurationExtension" NailgunExecEnabled="false" />
-      <EXTENSION ID="RubyCoverageRunConfigurationExtension" track_test_folders="true" runner="rcov" ENABLE_BRANCH_COVERAGE="true" ENABLE_FORKED_COVERAGE="true">
-        <COVERAGE_PATTERN ENABLED="true">
-          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
-        </COVERAGE_PATTERN>
-      </EXTENSION>
-      <EXTENSION ID="org.jetbrains.plugins.ruby.rails.run.RailsRunConfigurationExtension" SCRATCH_USE_RAILS_RUNNER="false" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="$MODULE_DIR$/test/test_grc.rb" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPTS_PATHS" VALUE="$MODULE_DIR$/test/test_grc.rb" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_METHOD_NAME" VALUE="^test_unicode_name$" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_METHOD" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ZEUS" VALUE="false" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SPRING" VALUE="false" />
-      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Ruby.grc" />
+        <item itemvalue="Ruby.scratch_2" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.test_tonos_to_oxia" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.test_oxia_to_tonos" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.test_grc.rb" />
-        <item itemvalue="Test::Unit/Shoulda/Minitest.test_unicode_name" />
       </list>
     </recent_temporary>
   </component>
@@ -210,6 +198,10 @@
       <workItem from="1657595516239" duration="5292000" />
       <workItem from="1657776231899" duration="3819000" />
       <workItem from="1657925313775" duration="11283000" />
+      <workItem from="1658162313087" duration="7923000" />
+      <workItem from="1658182588862" duration="10908000" />
+      <workItem from="1658229649287" duration="2005000" />
+      <workItem from="1658243583313" duration="4154000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657596693848</created>
@@ -351,7 +343,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658030060833</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="README updated">
+      <created>1658098607476</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1658098607476</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -389,6 +388,6 @@
     <SUITE FILE_PATH="coverage/grc@test_tonos_to_oxia.rcov" NAME="test_tonos_to_oxia Coverage Results" MODIFIED="1657950558051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
     <SUITE FILE_PATH="coverage/grc@test_grc_rb.rcov" NAME="test_grc.rb Coverage Results" MODIFIED="1657599843372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
     <SUITE FILE_PATH="coverage/grc@test_unicode_name.rcov" NAME="test_unicode_name Coverage Results" MODIFIED="1657596419433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
-    <SUITE FILE_PATH="coverage/grc@grc.rcov" NAME="grc Coverage Results" MODIFIED="1657992581443" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
+    <SUITE FILE_PATH="coverage/grc@grc.rcov" NAME="grc Coverage Results" MODIFIED="1658225403909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
   </component>
 </project>
