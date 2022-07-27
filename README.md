@@ -1,4 +1,6 @@
-[![Ruby](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml/badge.svg)](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml) [![Gem Version](https://badge.fury.io/rb/grc.svg)](https://badge.fury.io/rb/grc) [![Coverage Status](https://coveralls.io/repos/github/bcdavasconcelos/grc/badge.svg?branch=Main)](https://coveralls.io/github/bcdavasconcelos/grc?branch=Main)
+[![Ruby](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml/badge.svg)](https://github.com/bcdavasconcelos/grc/actions/workflows/main.yml) [![Gem Version](https://badge.fury.io/rb/grc.svg)](https://badge.fury.io/rb/grc) 
+
+<!--[![Coverage Status](https://coveralls.io/repos/github/bcdavasconcelos/grc/badge.svg?branch=Main)](https://coveralls.io/github/bcdavasconcelos/grc?branch=Main)-->
 
 # GRC - Ancient Greek Methods for Ruby
  
@@ -135,49 +137,6 @@ irb(main):014:0> str.unicode_name
 
 Notice how `ἄ` (`GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA`) becomes `α` (`GREEK SMALL LETTER ALPHA`), `̓` (`COMBINING COMMA ABOVE`), `́` (`COMBINING ACUTE ACCENT`). If we decompose a string and then try to match a query against it, there will be no need to get the diacritics right and we'll only need the base-character.
 
-Let us try to match the query `ανθρω` against the string in different versions.
-
-str_nfc = str.nfc
-str_nfd = str.nfd
-
-```ruby
-irb(main):015:0> str_nfc.match('ανθρω')
-=> #<MatchData "ανθρω" "ανθρω">
-irb(main):016:0> str_nfd.match('ανθρω')
-=> #<MatchData "ανθρω" "ανθρω">
-irb(main):017:0> str_nfc.match('ανθρω')
-=> #<MatchData "ανθρω" "ανθρω">
-irb(main):018:0> str_nfd.match('ανθρω')
-=> #<MatchData "ανθρω" "ανθρω">
-irb(main):019:0> str_nfc.match('ανθρω')
-=> #<MatchData "ανθρω" "ανθρω">
-irb(main):020:0> str_nfd.match('ανθρω')
-=> #<MatchData "ανθρω" "ανθρω">
-irb(main):021:0> str_nfc.match('ανθρω')
-=> #<MatchData "ανθρω" "ανθρω">
-  
-irb(main):015:0> str.match('ανθρω')
-=> #<MatchData "ανθρω" 1:"ανθρω">
-irb(main):016:0> str.match('ανθρω').to_s
-=> "ανθρω"
-irb(main):017:0> str.match('ανθρω').to_s.nfd
-=> "ανθρω"
-irb(main):018:0> str.match('ανθρω').to_s.nfd.unicode_name
-=> ["GREEK SMALL LETTER ALPHA", "GREEK SMALL LETTER NU", "GREEK SMALL LETTER THETA", "GREEK SMALL LETTER RHO", "GREEK SMALL LETTER OMEGA", "GREEK SMALL LETTER PI", "GREEK SMALL LETTER OMICRON", "GREEK SMALL LETTER FINAL SIGMA"]
-```
-
-irb(main):015:0> str.match('ἄνθρωπος')
-=> #<MatchData "ἄνθρωπος">
-irb(main):016:0> str.match('ἄνθρωπος').to_s
-=> "ἄνθρωπος"
-irb(main):017:0> str.match('ἄνθρωπος').to_s.nfd
-=> "ἄνθρωπος"
-irb(main):018:0> str.match('ἄνθρωπος').to_s.nfd.match('ἄνθρωπος')
-=> #<MatchData "ἄνθρωπος">
-irb(main):019:0> str.match('ἄνθρωπος').to_s.nfd.match('ἄνθρωπος').to_s
-=> "ἄνθρωπος"
-```
-
 ### `nfc` (str → str)
 
 Using the result string from the last example, we can compose the characters back into its precomposed form. `α` (alpha), `̓` (smooth breathing), `́` (acute accent) will be composed back into a single character, that is, `ἄ` (alpha with breathing and acute accent).
@@ -282,6 +241,9 @@ irb(main):025:0> str = str.to_tonos
 irb(main):026:0> str.unicode_name
 => ["GREEK SMALL LETTER THETA", "GREEK SMALL LETTER EPSILON", "GREEK SMALL LETTER ALPHA WITH TONOS"]
 ```
+## See also
+
+- [Unicode in Ruby](https://idiosyncratic-ruby.com/66-ruby-has-character.html)
 
 ## Development
 
