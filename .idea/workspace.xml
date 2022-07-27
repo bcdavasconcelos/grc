@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0af4ebef-9f59-4a85-9f65-0d8163baa737" name="Changes" comment="Fix last commit">
-      <change afterPath="$PROJECT_DIR$/.coveralls.yml" afterDir="false" />
+    <list default="true" id="0af4ebef-9f59-4a85-9f65-0d8163baa737" name="Changes" comment="Fixed readme">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/grc.rb" beforeDir="false" afterPath="$PROJECT_DIR$/lib/grc.rb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="teeste" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PUSH_TAGS">
@@ -21,8 +26,12 @@
         <option name="title" value="All" />
       </GitPushTagMode>
     </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -41,7 +50,7 @@
     &quot;last_opened_file_path&quot;: &quot;/Users/bcdav/Dropbox/Developer/Ruby/Gems/grc&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;ruby.rails.projectView.checked&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.intentionPowerPack&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;
   }
 }</component>
   <component name="RunManager" selected="Ruby.grc">
@@ -172,11 +181,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Ruby.grc" />
-        <item itemvalue="Ruby.scratch_2" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.test_tonos_to_oxia" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.test_oxia_to_tonos" />
         <item itemvalue="Test::Unit/Shoulda/Minitest.test_grc.rb" />
+        <item itemvalue="Ruby.scratch_2" />
+        <item itemvalue="Ruby.grc" />
       </list>
     </recent_temporary>
   </component>
@@ -198,7 +207,10 @@
       <workItem from="1658162313087" duration="7923000" />
       <workItem from="1658182588862" duration="10908000" />
       <workItem from="1658229649287" duration="2005000" />
-      <workItem from="1658243583313" duration="6652000" />
+      <workItem from="1658243583313" duration="8538000" />
+      <workItem from="1658327357205" duration="4811000" />
+      <workItem from="1658437305242" duration="60892000" />
+      <workItem from="1658793189231" duration="3008000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1657596693848</created>
@@ -389,7 +401,42 @@
       <option name="project" value="LOCAL" />
       <updated>1658282721327</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="Fix last commit">
+      <created>1658282904134</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1658282904134</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Fixed readme">
+      <created>1658890232799</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1658890232799</updated>
+    </task>
+    <task id="LOCAL-00030" summary="codepoints, unicode/data">
+      <created>1658890400055</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1658890400055</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Fixed readme">
+      <created>1658890938880</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1658890938880</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Fixed readme">
+      <created>1658891037810</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1658891037810</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -422,13 +469,15 @@
     <MESSAGE value="README updated" />
     <MESSAGE value="Coveralls" />
     <MESSAGE value="Fix last commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix last commit" />
+    <MESSAGE value="codepoints, unicode/data" />
+    <MESSAGE value="Fixed readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed readme" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/grc@test_oxia_to_tonos.rcov" NAME="test_oxia_to_tonos Coverage Results" MODIFIED="1657949990401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
     <SUITE FILE_PATH="coverage/grc@test_tonos_to_oxia.rcov" NAME="test_tonos_to_oxia Coverage Results" MODIFIED="1657950558051" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
     <SUITE FILE_PATH="coverage/grc@test_grc_rb.rcov" NAME="test_grc.rb Coverage Results" MODIFIED="1657599843372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
     <SUITE FILE_PATH="coverage/grc@test_unicode_name.rcov" NAME="test_unicode_name Coverage Results" MODIFIED="1657596419433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
-    <SUITE FILE_PATH="coverage/grc@grc.rcov" NAME="grc Coverage Results" MODIFIED="1658225403909" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
+    <SUITE FILE_PATH="coverage/grc@grc.rcov" NAME="grc Coverage Results" MODIFIED="1658890073797" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="grc" />
   </component>
 </project>
