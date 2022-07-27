@@ -227,6 +227,7 @@ class String
   include Grc
 end
 
+
 p 'α'.unicode_normalize.codepoints.map{ |c| 'U+%04X'%c }
 # % = replace with block result, X = hexadecimal, 4 = 4 hexadecimal digits and 0 = pad with zeros
 
