@@ -226,3 +226,83 @@ end
 class String
   include Grc
 end
+
+p 'α'.unicode_normalize.codepoints.map{ |c| 'U+%04X'%c }
+# % = replace with block result, X = hexadecimal, 4 = 4 hexadecimal digits and 0 = pad with zeros
+
+# p 'a'.unicode_normalize.codepoints.map{ |c| 'U+%04X'%c }
+# c = 'a'.codepoints
+# p '%10'%c
+# require 'unicode/data'
+
+# 'ἀἄᾄἂᾂἆᾆᾀἁἅᾅἃᾃἇᾇᾁάάᾴὰᾲᾰᾶᾷᾱᾳἐἔἒἑἕἓέέὲἠἤᾔἢᾒἦᾖᾐἡἥᾕἣᾓἧᾗᾑήήῄὴῂῆῇῃἰἴἲἶἱἵἳἷίίὶῐῖϊϊΐῒῗῑὀὄὂὁὅὃόόὸῤῥὐὔὒὖὑὕὓὗύύὺῠῦϋΰΰΰῢῧῡὠὤᾤὢᾢὦᾦᾠὡὥᾥὣᾣὧᾧᾡώώῴὼῲῶῷῳἈἌἊἎἉἍἋἏΆᾺᾸᾹἘἜἚἙἝἛΈῈἨἬἪἮἩἭἫἯΉῊἸἼἺἾἹἽἻἿΊῚῘΪῙὈὌὊὉὍὋΌῸΡῬὙὝὛὟΎῪῨΫῩὨὬὪὮὩὭὫὯΏῺ'.nfd.each_char do |char|
+#   p char unless Unicode::Data.property?('\p{General_Category=Mn}', char)
+# end
+# p Unicode::Data.property?('\p{General_Category=Mn}', 'ἄ')
+
+# str = 'ἄνθρωπος'
+# str_nfc = str.nfc
+# str_nfd = str.nfd
+# query = 'ανθρ'
+#
+# p str_nfc.match('ανθρ')
+# p str_nfd.match('ανθρ')
+
+# ᾌ [U+1F8C GREEK CAPITAL LETTER ALPHA WITH PSILI AND OXIA AND PROSGEGRAMMENI] → ἄι [U+1F04 GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA + U+03B9 GREEK SMALL LETTER IOTA]
+# ᾌ [U+0391 GREEK CAPITAL LETTER ALPHA + U+0313 COMBINING COMMA ABOVE + U+0301 COMBINING ACUTE ACCENT + U+0345 COMBINING GREEK YPOGEGRAMMENI]
+
+# str = 'ᾌ'.nfc
+# p str.downcase
+# p str.upcase
+# p str.grc_upcase
+# p str.nfc.unicode_name
+# # p str.nfd.unicode_name
+# p str.nfc.downcase.unicode_name
+# p str.downcase.nfc.upcase.nfc.unicode_name
+# s = 'ὊὉὍὋΌῸἈάἀἄᾄἂᾂἆéáàìò'
+# p s.no_upcase_diacritics
+# p s.no_downcase_diacritics
+# p s.no_diacritics
+# str = 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'
+# p str.transliterate
+
+# p 'ἀἄᾄἂᾂ'.upcase
+# puts 'ᾄἂᾂ'.grc_upcase
+
+# require 'unicode/data'
+
+# 'ἀἄᾄἂᾂἆᾆᾀἁἅᾅἃᾃἇᾇᾁάάᾴὰᾲᾰᾶᾷᾱᾳἐἔἒἑἕἓέέὲἠἤᾔἢᾒἦᾖᾐἡἥᾕἣᾓἧᾗᾑήήῄὴῂῆῇῃἰἴἲἶἱἵἳἷίίὶῐῖϊϊΐῒῗῑὀὄὂὁὅὃόόὸῤῥὐὔὒὖὑὕὓὗύύὺῠῦϋΰΰΰῢῧῡὠὤᾤὢᾢὦᾦᾠὡὥᾥὣᾣὧᾧᾡώώῴὼῲῶῷῳἈἌἊἎἉἍἋἏΆᾺᾸᾹἘἜἚἙἝἛΈῈἨἬἪἮἩἭἫἯΉῊἸἼἺἾἹἽἻἿΊῚῘΪῙὈὌὊὉὍὋΌῸΡῬὙὝὛὟΎῪῨΫῩὨὬὪὮὩὭὫὯΏῺ'.nfd.each_char do |char|
+#   p char unless Unicode::Data.property?('\p{General_Category=Mn}', char)
+# end
+# p Unicode::Data.property?('\p{General_Category=Mn}', 'ἄ')
+
+# str = 'ἄνθρωπος'
+# str_nfc = str.nfc
+# str_nfd = str.nfd
+# query = 'ανθρ'
+#
+# p str_nfc.match('ανθρ')
+# p str_nfd.match('ανθρ')
+
+# ᾌ [U+1F8C GREEK CAPITAL LETTER ALPHA WITH PSILI AND OXIA AND PROSGEGRAMMENI] → ἄι [U+1F04 GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA + U+03B9 GREEK SMALL LETTER IOTA]
+# ᾌ [U+0391 GREEK CAPITAL LETTER ALPHA + U+0313 COMBINING COMMA ABOVE + U+0301 COMBINING ACUTE ACCENT + U+0345 COMBINING GREEK YPOGEGRAMMENI]
+
+# str = 'ᾌ'.nfc
+# p str.downcase
+# p str.upcase
+# p str.grc_upcase
+# p str.nfc.unicode_name
+# # p str.nfd.unicode_name
+# p str.nfc.downcase.unicode_name
+# p str.downcase.nfc.upcase.nfc.unicode_name
+# s = 'ὊὉὍὋΌῸἈάἀἄᾄἂᾂἆéáàìò'
+# p s.no_upcase_diacritics
+# p s.no_downcase_diacritics
+# p s.no_diacritics
+# str = 'Πάντες ἄνθρωποι τοῦ εἰδέναι ὀρέγονται φύσει. σημεῖον δ᾽ ἡ τῶν αἰσθήσεων ἀγάπησις· καὶ γὰρ χωρὶς τῆς χρείας ἀγαπῶνται δι᾽ αὑτάς, καὶ μάλιστα τῶν ἄλλων ἡ διὰ τῶν ὀμμάτων.'
+# p str.transliterate
+
+# p 'ἀἄᾄἂᾂ'.upcase
+# puts 'ᾄἂᾂ'.grc_upcase
+
+# p 'ᾀ'.upcase(:)
