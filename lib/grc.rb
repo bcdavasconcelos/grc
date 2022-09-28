@@ -221,7 +221,33 @@ module Grc
   def lower?
     !!match(/\p{Lower}/)
   end
+
+  def oxia_to_tonos
+    return @std_error unless grc?
+
+    to_tonos
+  end
+
+  def tonos_to_oxia
+    return @std_error unless grc?
+
+    to_oxia
+  end
+
+  def grave_to_acute
+    return @std_error unless grc?
+
+    to_acute
+  end
+
+  def acute_to_grave
+    return @std_error unless grc?
+
+    to_grave
+  end
+
 end
+
 
 class String
   include Grc
